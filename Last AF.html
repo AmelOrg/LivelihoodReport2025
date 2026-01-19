@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lebanon MEAL Impact Portal 2026</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+
+      /* @media print {
+    /* Hide the export button and other UI elements during export */
+    /*.no-print { display: none !important; }
+    
+    /* Force colors and charts to show in the PDF */
+  /*  body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    
+    /* Ensure the PDF layout doesn't break */
+  /*  main { width: 100% !important; margin: 0 !important; padding: 0 !important; }
+    /*.project-card { break-inside: avoid; margin-bottom: 20px; border: none !important; }
+/*}*/
+@media print {
+    /* Kill all animations and transitions that cause overlaying */
+    * { 
+        transition: none !important; 
+        animation: none !important; 
+    }
+    .no-print { display: none !important; }
+    /* Force chart containers to be static blocks with defined heights */
+    .chart-box {
+        display: block !important;
+        position: relative !important;
+        height: 300px !important; /* Fixed height for PDF */
+        width: 100% !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 30px !important;
+        overflow: visible !important; /* Prevents clipping */
+    }
+
+    canvas {
+        max-width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+    }
+
+    /* Fix for your "Impact Metric" red/green boxes overlaying charts */
+    .project-card > div {
+        display: block !important;
+        width: 100% !important;
+        clear: both !important; /* Forces elements to respect the one above them */
+    }
+}
+        
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .hero-bg { background-color: #064e3b; position: relative; overflow: hidden; padding-bottom: 80px; }
+        
+        /* Glass KPI Cards precisely as in your image */
+        .glass-kpi {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        #map { height: 550px; width: 100%; border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 8px solid white; }
+        
+        /* Image Containers per Section */
+        .img-container {
+            width: 100%;
+            height: 480px;
+            border-radius: 40px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .project-card { background: white; border-radius: 50px; padding: 4rem; margin-bottom: 6rem; border: 1px solid #eef2f6; }
+        .chart-box { background: #f8fafc; border-radius: 24px; padding: 20px; height: 240px; border: 1px solid #edf2f7; }
+        
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+
+    <header class="hero-bg text-white pt-24 pb-20 px-6">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-6xl md:text-5xl font-black mb-6 tracking-tight">Livelihood Program Annual Report 2025 </h1>
+            <p class="text-emerald-200 text-xl italic mb-16 opacity-90 max-w-1xl mx-auto">"Empowering People, Sustaining Livelihoods Through Evidence and Impact."</p>
+
+            <div class="flex flex-wrap justify-center gap-6 mb-16">
+                <div class="glass-kpi">
+                    <span class="text-4xl font-black text-white">22k</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-emerald-100 mt-4 opacity-70">Reached</span>
+                </div>
+                <div class="glass-kpi">
+                    <span class="text-4xl font-black text-white">88%</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-emerald-100 mt-4 opacity-70">Satisfied</span>
+                </div>
+                <div class="glass-kpi">
+                    <span class="text-4xl font-black text-white">14</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-emerald-100 mt-4 opacity-70">Centers</span>
+                </div>
+                <div class="glass-kpi">
+                    <span class="text-4xl font-black text-white">1.2M</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-emerald-100 mt-4 opacity-70">USD Managed</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="map-section" class="max-w-7xl mx-auto py-24 px-6">
+        <div class="grid lg:grid-cols-3 gap-16 items-center mb-16">
+            <div class="lg:col-span-1">
+      
+     
+         <div class="lg:col-span-1">
+                <h2 class="text-4xl font-bold mb-6 text-emerald-900">Heat Coverage of Livelihood Interventions</h2>
+                <p class="text-gray-600 mb-8">Real-time heat coverage of program interventions by center across Lebanon, highlighting donor-specific activities.</p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border-l-4 border-red-500">
+                        <span class="font-bold text-sm">Baalbek- Chmestar (MOFA)</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border-l-4 border-yellow-500">
+                        <span class="font-bold text-sm">West Bekaa - Kamed El Loz (MOFA)</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border-l-4 border-blue-500">
+                        <span class="font-bold text-sm">Mount Lebanon-Chiah & hay El Sellom (LIFE France-MOFA-DCA)</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border-l-4 border-emerald-500">
+                        <span class="font-bold text-sm">South-Saida & Tyre (MOFA-DCA)</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border-l-4 border-purple-500">
+                        <span class="font-bold text-sm">Akkar (MOFA "AND")</span>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="lg:col-span-2">
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <main id="projects" class="max-w-7xl mx-auto py-12 px-6">
+
+        <div class="project-card shadow-sm">
+            <div class="img-container">
+                <img src="images/Food Security.jpg" alt="Livelihood Distribution">
+                <!-- \\src="https://images.unsplash.com/photo-1541844053589-346841d0b34c?auto=format&fit=crop&q=80" -->
+            </div>
+            <div class="grid lg:grid-cols-2 gap-20 items-start">
+                <div>
+                    <span class="bg-red-100 text-red-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest">Project 01: LHF MultiSectoral</span>
+                    <h3 class="text-2xl font-black mt-6 mb-8 text-slate-900 leading-tight">Support to affected/displaced populations in South Through Food Security, Livelihood and Wash</h3>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">A total of 225 farmers were registered, including 68 women and 157 men.  Three agricultural awareness sessions are conducted additional to one more session upon the farmer's request. Following each session, $100 in cash assistance was distributed to each farmer for a period of three months.</p>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">In WASH sector ,1500 MHM kits were distributed on a 3 basis one each month in  February ,March and April 2025   to 300 women and 200 girls. 20 sessions were conducted in February 2025 for 500 women and girls .</p>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">Regarding Livelihood sector, all project activities were achieved: 17 vocational training were delivered (510 Hours) ,265 beneficiaries were graduated ,  certificates were designed .
+                        </p>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="chart-box w-full h-80 bg-gray-100 p-4 rounded-lg">
+                                <canvas id="chartLHF1" class="w-full h-full"></canvas>
+                            </div>
+                            <div class="chart-box w-full h-64">
+                                <canvas id="chartLHF2" class="w-full h-full"></canvas>
+                            </div>
+                            <div class="chart-box w-full h-80 bg-gray-100 p-4 rounded-lg">
+                                <canvas id="chartLHF3VT" class="w-full h-full"></canvas>
+                            </div>
+                            <div class="chart-box w-full h-80 bg-gray-100 p-4 rounded-lg">
+                                <canvas id="chartLHF4Wash" class="w-full h-full"></canvas>
+                            </div>
+                        </div>
+                </div>
+                <div class="flex flex-col gap-10">
+                <div class="bg-red-50 p-12 rounded-[50px] border border-red-100 h-full flex flex-col justify-center">
+                    <h4 class="text-2xl font-black text-red-900 mb-6 italic">Participant Testimonial – Macrame Course</h4>
+                    <p class="text-xl text-red-800 italic leading-relaxed">"The course was an amazing opportunity to meet everyone and learn new skills. A heartfelt thank you to Ms. Hanan for her care and guidance she shared so much of herself with us. We learned things that we previously thought were difficult, and the experience was truly rewarding. Many thanks to the organization for making this possible. Wishing you endless health and blessings."</p>
+                    <p class="mt-8 font-black text-red-900 uppercase tracking-widest" style="padding:0 0 20px 0;">— Malak, Saida</p>
+                    
+                    <h4 class="text-2xl font-black text-red-900 mb-6 italic">Success Story</h4>
+                    <p class="text-xl text-red-800 italic leading-relaxed">"Some women started home-based businesses, especially those who took the macrame course. A few began ordering raw materials and fulfilling customer requests from home. For example, a mother and daughter started working together from their home. "</p>
+
+                </div>
+                <div class="order-2 lg:order-1 bg-red-900 text-white p-12 rounded-[50px] shadow-2xl">
+                    <h4 class="text-emerald-400 font-black text-xl mb-6 uppercase tracking-widest">Impact Metric</h4>
+                    <p class="text-4xl font-black mb-4">88.77% Increase</p>
+                    <p class="text-emerald-200 text-lg mb-10">People enabled to meet their basic food needs</p>
+                    <div class="border-t border-emerald-800 pt-8">
+                        <p class="italic text-lg">"Improved economic stability and increased agricultural productivity among 225 farmers receiving cash-based assistance
+                            ."</p>
+                    </div>
+                </div>
+                <div class="order-2 lg:order-1 bg-red-600 text-white p-12 rounded-[50px] shadow-2xl">
+                    <h4 class="text-emerald-400 font-black text-xl mb-6 uppercase tracking-widest">Impact Metric</h4>
+                    <p class="text-4xl font-black mb-4">87.43% Knowledge Increase</p>
+                    <p class="text-emerald-200 text-lg mb-10">Youth above 15 years of age after receiving livelihood activities</p>
+                    <div class="border-t border-emerald-800 pt-8">
+                        <p class="italic text-lg">"Demostrated increase in understanding or skills after receiving vocational training."</p>
+                    </div>
+                </div>
+                <div class="order-2 lg:order-1 bg-red-500 text-white p-12 rounded-[50px] shadow-2xl">
+                    <h4 class="text-emerald-400 font-black text-xl mb-6 uppercase tracking-widest">Impact Metric</h4>
+                    <p class="text-4xl font-black mb-4">76.32% Increase</p>
+                    <p class="text-emerald-200 text-lg mb-10"> Boys, girls, women and men with appropriate hygiene knowledge, attitudes and practices
+                    </p>
+                    <div class="border-t border-emerald-800 pt-8">
+                        <p class="italic text-lg">"Improved hygiene knowledge observed among displaced women and girls as a result of targeted awareness-raising sessions"</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="project-card shadow-sm">
+            <div class="img-container">
+                <img src="images/MOFA.jpg" alt="Agri-Tech Bekaa">
+            </div>
+            <div class="grid lg:grid-cols-2 gap-20 items-start">
+                <div class="order-2 lg:order-1 flex flex-col gap-6">
+                <div class="bg-emerald-50 p-10 rounded-[40px] border border-emerald-100">
+                    <span class="story-badge">Social Cohesion</span>
+                    <p class="text-lg text-emerald-900 font-bold italic mt-4">"Initially, I held misconceptions about other communities. By the end, I openly denounced racism. We realized we face the same challenges."</p>
+                    <p class="mt-2 text-xs font-black text-emerald-700">— Batoul, 37, Lebanese Participant</p>
+                </div>
+                <div class="bg-emerald-900 text-white p-10 rounded-[40px] shadow-xl">
+                    <h4 class="text-emerald-400 font-black uppercase text-sm mb-4">Youth Vocational Reach</h4>
+                    <p class="text-lg leading-relaxed mb-6">Ali (16), Fadel (15), Ayham (15), and Zain (15) successfully transitioned directly into employment after our barbering training.</p>
+                    <div class="border-t border-emerald-700 pt-4 italic text-emerald-100">"The Nol course gave me skills I can actually use. I feel hopeful again." — Displaced Woman, 26</div>
+                </div>
+
+                <div class="bg-blue-50 p-10 rounded-[40px] border border-blue-100">
+                    <span class="story-badge" style="background:#dbeafe; color:#1e40af;">Children FPSS Success</span>
+                    <p class="text-lg text-blue-900 font-bold italic mt-4"> A 10-year-old girl who joined Focused Psychosocial Support (FPSS) sessions and became extremely shy eventually opened up through art and group activities. By the end of the cycle, she was expressing herself freely and interacting comfortably with her peers.</p>
+                </div>
+                <div class="p-8 bg-emerald-50/50 rounded-[40px] border border-emerald-100 shadow-sm">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h4 class="text-emerald-900 font-black text-xl tracking-tight">Demographic Breakdown</h4>
+            <p class="text-emerald-600 text-[10px] font-bold uppercase tracking-widest">Total Reach: 8,857 Individuals</p>
+        </div>
+        <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-lg">
+            <i class="fa-solid fa-users text-sm"></i>
+        </div>
+    </div>
+    
+    <div class="h-[350px] w-full">
+        <canvas id="chartDemographicsNew"></canvas>
+    </div>
+</div>
+            </div>
+                <div class="order-1 lg:order-2">
+                    <span class="bg-emerald-100 text-emerald-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest">Project 02: MOFA</span>
+                    <h3 class="text-5xl font-black mt-6 mb-8 text-slate-900 leading-tight">Inclusion, access to rights, and self-relianc</h3>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">Combatting the exclusion of women, girls, men, and boys from the most vulnerable host and refugee communities in Lebanon, strengthening their resilience and autonomy by facilitating their access to economic and social rights (protection, basic services, ...).Implemented in Kamed El Loz, Tyre, Chmestar, Ard Jaloul, Hay El Sellom, and Chiah in addition to Akkar by AND the Amel Partner.</p>
+                    <div class="grid grid-cols-1 gap-6">
+                    <div class="chart-box w-full"><canvas id="chartMOFADemographics"></canvas></div>
+                    <!-- <div class="p-10 bg-slate-50 rounded-3xl border border-slate-100">
+                        <h4 class="font-black text-slate-800 mb-6 uppercase text-sm tracking-widest">Active Services:</h4>
+                        <ul class="space-y-3 font-bold text-slate-700">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Vocational Trainings: Barber, Nol, Macrame, Photography, Nail Care,....:1028</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> CBPSS: 958</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Cildren FPSS:1481 </li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Life Skills:2615</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Sensitizing and Dialogue Sessions:391</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Community events sensitive to conflicts:533</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> SRH Awareness:1786</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> GBV Refferals:65</li>
+                           
+                        </ul>
+                    </div>                    -->
+                    <div class="p-8 bg-white rounded-[40px] border border-emerald-100 shadow-sm">
+                        <div class="mb-10 text-center">
+                            <h4 class="text-emerald-900 font-black text-3xl tracking-tight mb-2">Service Reach</h4>
+                            <div class="h-1 w-20 bg-emerald-500 mx-auto rounded-full"></div>
+                        </div>
+                    
+                        <div class="space-y-4">
+                            <div class="bg-emerald-900 p-8 rounded-[32px] text-white flex flex-col md:flex-row justify-between items-center text-center md:text-left shadow-lg">
+                                <div>
+                                    <p class="text-emerald-300 text-xs font-bold uppercase tracking-widest mb-1">Top Performer</p>
+                                    <h5 class="text-2xl font-bold">Life Skills Training</h5>
+                                </div>
+                                <div class="mt-4 md:mt-0">
+                                    <span class="text-5xl font-black">2,615</span>
+                                    <p class="text-emerald-400 text-[10px] font-bold uppercase text-right">Participants</p>
+                                </div>
+                            </div>
+                    
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-6 bg-emerald-50 border border-emerald-100 rounded-[28px] flex justify-between items-center">
+                                    <span class="font-bold text-emerald-800 tracking-tight">SRH Awareness</span>
+                                    <span class="text-2xl font-black text-emerald-600">1,786</span>
+                                </div>
+                    
+                                <div class="p-6 bg-emerald-50 border border-emerald-100 rounded-[28px] flex justify-between items-center">
+                                    <span class="font-bold text-emerald-800 tracking-tight">Children FPSS</span>
+                                    <span class="text-2xl font-black text-emerald-600">1,481</span>
+                                </div>
+                    
+                                <div class="p-6 bg-emerald-50 border border-emerald-100 rounded-[28px] flex justify-between items-center">
+                                    <span class="font-bold text-emerald-800 tracking-tight">Vocational Training</span>
+                                    <span class="text-2xl font-black text-emerald-600">1,028</span>
+                                </div>
+                    
+                                <div class="p-6 bg-emerald-50 border border-emerald-100 rounded-[28px] flex justify-between items-center">
+                                    <span class="font-bold text-emerald-800 tracking-tight">CBPSS Groups</span>
+                                    <span class="text-2xl font-black text-emerald-600">958</span>
+                                </div>
+                            </div>
+                    
+                            <div class="grid grid-cols-3 gap-3 pt-2">
+                                <div class="bg-slate-50 p-4 rounded-2xl text-center border border-slate-100">
+                                    <p class="text-[9px] font-bold text-slate-500 uppercase mb-1">Community Events</p>
+                                    <p class="text-xl font-black text-emerald-700">533</p>
+                                </div>
+                                <div class="bg-slate-50 p-4 rounded-2xl text-center border border-slate-100">
+                                    <p class="text-[9px] font-bold text-slate-500 uppercase mb-1">Dialogue Sessions</p>
+                                    <p class="text-xl font-black text-emerald-700">391</p>
+                                </div>
+                                <div class="bg-emerald-100/50 p-4 rounded-2xl text-center border border-emerald-200">
+                                    <p class="text-[9px] font-bold text-emerald-600 uppercase mb-1">GBV Refferals</p>
+                                    <p class="text-xl font-black text-emerald-800">65</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card shadow-sm">
+            <div class="img-container">
+                <img src="images/Session 1.jpg" alt="Digital Hub">
+            </div>
+            <div class="grid lg:grid-cols-2 gap-20 items-start">
+                <div>
+                    <span class="bg-blue-100 text-blue-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest">Project 03: LIFE France</span>
+                    <h3 class="text-5xl font-black mt-6 mb-8 text-slate-900 leading-tight">Digital Youth Empowerment-Hay El Sellom Center</h3>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">48 participnats completed 7 month cycle of Digital skills training,in addition to Life skilss, soft skills and PSS.</p>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">Out of 48 total participants, 40 (83%) secured internships. Of these, 37 interns (92.5%) worked remotely, while 3 (7.5%) completed on-site placements at the Amel Association or local businesses. Intern commitment was exceptionally high: 65% completed over 200 hours, and the remaining 35% finished 150 hours, demonstrating significant dedication to the program.</p>
+                    
+                </div>
+            <div class="flex flex-col gap-10">
+                <div class="bg-blue-50 p-12 rounded-[50px] border border-blue-100">
+                    <h4 class="text-2xl font-black text-blue-900 mb-6 italic"></h4>
+                    <p class="text-xl text-blue-800 italic leading-relaxed">"Endline Assessment shows a significant development in the youth’s acquisition of digital marketing skills, both in terms of personal growth, interaction with the labor market, and professional technical abilities."</p>
+                    <!-- <p class="mt-8 font-black text-blue-900 uppercase tracking-widest">— Marc G., Tripoli</p> -->
+                </div>
+                <div class="chart-box w-full"><canvas id="chartPlacementBar"></canvas></div>
+                <div class="chart-box w-full"><canvas id="chartPlacementModality"></canvas></div>
+            </div>
+            </div>
+        </div>
+
+        <div class="project-card shadow-sm">
+            <div class="img-container">
+                <img src="images/DCA.jpg" alt="Community Support">
+            </div>
+            <div class="grid lg:grid-cols-2 gap-20 items-start">
+                <div class="flex flex-col gap-10">
+                 <div class="bg-slate-900 text-white p-12 rounded-[50px]">
+                    <h4 class="text-slate-400 font-bold mb-4 uppercase text-sm tracking-widest">outreach efforts</h4>
+                    <p class="text-3xl font-black mb-8">72 beneficiaries have been registered</p>
+                    <p class="text-slate-300 text-lg leading-relaxed mb-8">Based on the Labour Market Needs Assessment conducted by E-data, focus was placed on high-demand sectors identified by the study: digital skills, modern agriculture, healthcare, and vocational training.
+
+                        Youth aligned with these sectors and requiring foundational or additional skills to enhance employability were targeted. Institutes, universities, cooperatives, and relevant institutions were engaged to support outreach and strengthen youth capacities in line with labour market needs.
+                        
+                        This approach enabled youth to directly access the labour market through internships, employment opportunities, or self-employment.</p>
+                    <div class="h-1 bg-slate-800 w-full mb-8"></div>
+                    <p class="italic text-slate-400">"Coordination with the Lebanese University – Faculty of Business Administration (Beirut) enabled the implementation of an advanced digital marketing training addressing labour market gaps. Youth from Hay El Sellom, from first-year to master’s level, were enrolled, and partnerships with private companies were established to provide practical training, internships, and employment opportunities through formal cooperation agreements."</p>
+                </div>
+                <div class="chart-box"><canvas id="chartDCANationalities"></canvas></div>
+                <div class="p-8 bg-white rounded-[40px] border border-emerald-100 shadow-sm">
+                    <div class="mb-10 text-center">
+                        <h4 class="text-blue-900 font-black text-3xl tracking-tight mb-2">Service Reach</h4>
+                        <div class="h-1 w-20 bg-emerald-500 mx-auto rounded-full"></div>
+                    </div>
+                
+                    <div class="space-y-4">
+                        <div class="bg-blue-900 p-8 rounded-[32px] text-white flex flex-col md:flex-row justify-between items-center text-center md:text-left shadow-lg">
+                            <div>
+                                <p class="text-emerald-300 text-xs font-bold uppercase tracking-widest mb-1">Top Performer</p>
+                                <h5 class="text-2xl font-bold">PSS</h5>
+                            </div>
+                            <div class="mt-4 md:mt-0">
+                                <span class="text-5xl font-black">21</span>
+                                <p class="text-blue-400 text-[10px] font-bold uppercase text-right">Participants</p>
+                            </div>
+                        </div>
+                
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-6 bg-blue-50 border border-blue-100 rounded-[28px] flex justify-between items-center">
+                                <span class="font-bold text-emerald-800 tracking-tight">Vocational training</span>
+                                <span class="text-2xl font-black text-emerald-600">20</span>
+                            </div>
+                
+                            <div class="p-6 bg-blue-50 border border-blue-100 rounded-[28px] flex justify-between items-center">
+                                <span class="font-bold text-emerald-800 tracking-tight">Soft Skills</span>
+                                <span class="text-2xl font-black text-emerald-600">15</span>
+                            </div>
+                
+                            <div class="p-6 bg-blue-50 border border-blue-100 rounded-[28px] flex justify-between items-center">
+                                <span class="font-bold text-emerald-800 tracking-tight">Life Skills</span>
+                                <span class="text-2xl font-black text-emerald-600">17</span>
+                            </div>
+                
+                           
+                        </div>
+                
+            
+                    </div>
+                </div>
+            </div>
+                
+                <div>
+                    <span class="bg-slate-100 text-slate-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest">Project 04: DCA</span>
+                    <h3 class="text-5xl font-black mt-6 mb-8 text-slate-900 leading-tight">From Crisis to Strength: Advancing Livelihoods and Protection in Lebanon</h3>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">The project aims to empower youth with the necessary vocational skills and psychosocial support to help them access employment opportunities that meet current labor market needs.</p>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">The project will be implemented in three centers: Hay El Sellom and Haret Hreik in Mount Lebanon, and Nabatieh in the South. The selection of the topics was based on an initial labor market needs assessment, which identified key training areas required in each region.</p>
+                    <p class="text-slate-600 text-xl leading-relaxed mb-10">In parallel, the project focuses on technical and vocational empowerment, as well as psychosocial and life skills support, through sessions on soft skills, life skills, and PSS. Moreover, the project will facilitate youth engagement with the job market by offering internship opportunities, participation in job fairs, and training on project proposal writing, particularly emphasizing economic and social feasibility. Importantly, five innovative youth-led business ideas will be selected to receive seed funding for implementation.</p>
+ 
+                  
+                    <div class="chart-box" style="height: 350px !important;"><canvas id="chartDCANationalities_Targets" "></canvas></div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-amber-100 p-10 rounded-[40px] border-2 border-amber-300 flex flex-col md:flex-row justify-between items-center">
+            <div class="md:w-2/3">
+                <h3 class="text-2xl font-black text-amber-900 uppercase">Coming Jan 2026: ARDNA</h3>
+                <p class="text-amber-800 mt-2">In partnership with <strong>Caritas Switherland</strong>, Ardna aim strengthen the resilience of crisis-affected communities in southern Lebanon by providing sustainable livelihood opportunities, employability skills,
+                    psychosocial support and access to a multi-functional community center that fosters inclusion, self-reliance and social cohesion—especially women children
+                    and youth</p>
+            </div>
+            <div class="mt-6 md:mt-0">
+                <span class="bg-amber-900 text-white px-8 py-3 rounded-full font-bold">Inception Phase</span>
+            </div>
+        </div>
+    </main>
+    <!-- <footer class="bg-emerald-950 text-white py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center opacity-60">
+            <p class="font-bold tracking-widest uppercase text-xs">Amel LivelihoodProgram © 2026</p>
+            <div class="flex gap-10 text-xs font-bold mt-6 md:mt-0">
+                <a href="#">METHODOLOGY</a>
+                <a href="#">RAW DATA</a>
+                <a href="#">CONTACT</a>
+            </div>
+        </div>
+    </footer> -->
+    <!-- <footer class="max-w-7xl mx-auto py-12 px-6 border-t border-slate-100 mt-10">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-slate-400 text-sm font-medium">
+                © 2026 Livelihood Program Report | MOFA Impact Portfolio
+            </div>
+            
+            <button onclick="exportToPDF()" class="flex items-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-black transition-all shadow-lg shadow-emerald-100 hover:scale-105 active:scale-95">
+                <i class="fa-solid fa-file-pdf text-xl"></i>
+                EXPORT FULL REPORT AS PDF
+            </button>
+        </div>
+    </footer> -->
+    <footer class="max-w-7xl mx-auto py-12 px-6 no-print">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-slate-400 text-sm font-medium">
+                © 2025 Livelihood Program Report
+            </div>
+            
+            <button onclick="window.print()" class="flex items-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-black transition-all shadow-lg">
+                <i class="fa-solid fa-print text-xl"></i>
+                SAVE REPORT AS PDF
+            </button>
+        </div>
+    </footer>
+    <script>
+function exportToPDF() {
+    const btn = event.currentTarget;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
+    btn.disabled = true;
+
+    // We target the "main" tag or a specific ID
+    const element = document.querySelector('main'); 
+
+    const opt = {
+        margin: [10, 10],
+        filename: 'Livelihood_Impact_Report_2025.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            logging: false,
+            letterRendering: true
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    // New logic to handle charts properly
+    html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdf) {
+        btn.innerHTML = '<i class="fa-solid fa-file-pdf text-xl"></i> EXPORT FULL REPORT AS PDF';
+        btn.disabled = false;
+    }).save();
+}
+        Chart.register(ChartDataLabels);
+        // MAP
+        const map = L.map('map', {scrollWheelZoom: false}).setView([33.8547, 35.8623], 8);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(map);
+        
+        const spots = [
+            { c: [34.545, 36.078], clr: '#a855f7' }, // Akkar
+            { c: [33.888, 35.495], clr: '#3b82f6' }, // Beirut
+            { c: [33.843, 35.902], clr: '#eab308' },  // Bekaa
+            { c: [33.5615, 35.3571], clr: '#10b981' },  // Saida
+            { c: [33.2674, 35.1996024], clr: '#10b981' },  // Tyre
+            { c: [33.9638696,36.0081691], clr: '#ef4444' }  // Bekaa
+        ];
+        spots.forEach(s => L.circle(s.c, { color: s.clr, radius: 15000, fillOpacity: 0.5 }).addTo(map));
+
+        // CHARTS
+        const opt = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
+        const opt1 = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },title: {
+                display: true,
+                text: 'Value of conditional cash transfers distributed in USD',
+                padding: {
+                    top: 10,
+                    bottom: 30
+                }
+            } } };
+            const opt2 = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },title: {
+                display: true,
+                text: ' People receiving conditional cash transfers',
+                padding: {
+                    top: 10,
+                    bottom: 30
+                }
+            } } };
+
+            const chartData = {
+    labels: ['Women', 'Men'], // must exist, even without a "header"
+    datasets: [{
+        data: [68, 157],
+        backgroundColor: ['#ef4444', '#fee2e2']
+    }]
+};
+
+            const opt3 = {responsive: true, maintainAspectRatio: false,
+    plugins: {
+        title: {
+            display: true,
+            text: 'People receiving conditional cash transfers',
+            padding: { top: 10, bottom: 30 }
+        },
+        datalabels: {
+            display: true,
+            color: '#000',
+            anchor: 'center',
+            align: 'center',
+            formatter: function(value, context) {
+                const total = context.chart.data.datasets[0].data.reduce((a,b) => a+b, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                // use the label from context to avoid header issue
+                const label = context.chart.data.labels[context.dataIndex] || '';
+                return  value + ' (' + percentage + '%)';
+            },
+            font: { size:10 }
+        },
+        tooltip: {
+            enabled: true,
+            callbacks: {
+                label: function(context) {
+                    const total = context.chart.data.datasets[0].data.reduce((a,b) => a+b, 0);
+                    const value = context.raw;
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return value + ' (' + percentage + '%)';
+                }
+            }
+        }
+    }
+};
+const opt4 = {responsive: true, maintainAspectRatio: false,
+    plugins: {
+        title: {
+            display: true,
+            text: 'individuals benefiting from work based learning opportunities',
+            padding: { top: 10, bottom: 30 }
+        },
+        datalabels: {
+            display: true,
+            color: '#000',
+            anchor: 'center',
+            align: 'center',
+            formatter: function(value, context) {
+                const total = context.chart.data.datasets[0].data.reduce((a,b) => a+b, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                // use the label from context to avoid header issue
+                const label = context.chart.data.labels[context.dataIndex] || '';
+                return  value + ' (' + percentage + '%)';
+            },
+            font: { size:10 }
+        },
+        tooltip: {
+            enabled: true,
+            callbacks: {
+                label: function(context) {
+                    const total = context.chart.data.datasets[0].data.reduce((a,b) => a+b, 0);
+                    const value = context.raw;
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return value + ' (' + percentage + '%)';
+                }
+            }
+        }
+    }
+};
+
+        new Chart(document.getElementById('chartLHF1'), { type: 'pie', data: { labels: ['Women', 'Men'], datasets: [{ data: [68, 157], backgroundColor: ['#ef4444', '#fee2e2'] }]}, options: opt3 });
+        new Chart(document.getElementById('chartLHF3VT'), { type: 'pie', data: { labels: ['Women', 'Men','Boys','Girls'], datasets: [{ data: [155,35,13,62], backgroundColor: ['#b91c1c', // Women – dark red
+                '#dc2626', // Men – red
+                '#f87171', // Boys – light red
+                '#fecaca'] }]}, options: opt4 });
+        new Chart(document.getElementById('chartLHF2'), { type: 'bar', data: { labels: ['Women', 'Men'], datasets: [{ data: [20400, 47100], backgroundColor: ['#ef4444', '#fee2e2'] }]}, options: opt1 });
+        const ctx = document.getElementById('chartLHF4Wash').getContext('2d');
+
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Women (300)', 'Girls (200)'],
+        datasets: [{
+            label: 'People Reached',
+            data: [300, 200],
+            backgroundColor: [
+                '#ef4444', // Red for Women
+                '#fca5a5'  // Soft Red/Pink for Girls
+            ],
+            hoverOffset: 10,
+            borderWidth: 2,
+            borderColor: '#ffffff'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 20,
+                    font: {
+                        size: 12,
+                        family: 'Inter',
+                        weight: 'bold'
+                    },
+                    color: '#334155'
+                }
+            },
+            title: {
+                display: true,
+                text: 'Hygiene Messaging Reach',
+                font: {
+                    size: 16,
+                    weight: '900'
+                },
+                color: '#0f172a',
+                padding: { bottom: 10 }
+            }
+        },
+        cutout: '70%' // Makes it a thinner, modern ring
+    }
+});
+    // 3. MOFA Demographics (From Spreadsheet)
+    new Chart(document.getElementById('chartMOFADemographics'), {
+            type: 'bar',
+            data: {
+                labels: ['Lebanese', 'Syrian', 'Palestinian', 'Other'],
+                datasets: [{
+                    label: 'Total Participants',
+                    data: [5221, 3297, 250, 89],
+                    backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#64748b'],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'MOFA Reach by Nationality (Total 8857)', font: { size: 14, weight: 'bold' } },
+                    legend: { display: false },
+                    datalabels: { color: '#fff', font: { weight: 'bold' } }
+                },
+                scales: { x: { grid: { display: false } }, y: { grid: { display: false } } }
+            }
+        });
+        // Demographic Data: Girls (1863), Boys (1091), Women (5394), Men (509)
+const ctxDemo = document.getElementById('chartDemographicsNew').getContext('2d');
+new Chart(ctxDemo, {
+    type: 'bar',
+    data: {
+        labels: ['Women', 'Girls', 'Boys', 'Men'],
+        datasets: [{
+            label: 'Participants',
+            data: [5394, 1863, 1091, 509],
+            backgroundColor: [
+                '#064e3b', // Deep Emerald (Women)
+                '#059669', // Medium Emerald (Girls)
+                '#34d399', // Light Emerald (Boys)
+                '#a7f3d0'  // Pale Mint (Men)
+            ],
+            borderRadius: 15,
+            borderSkipped: false,
+            barThickness: 40
+        }]
+    },
+    options: {
+        indexAxis: 'y', // Horizontal Bar Chart for better readability
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { right: 50 } },
+        plugins: {
+            legend: { display: false },
+            datalabels: {
+                anchor: 'end',
+                align: 'right',
+                color: '#064e3b',
+                font: { weight: '900', size: 14 },
+                formatter: (value) => value.toLocaleString()
+            },
+            tooltip: {
+                backgroundColor: '#064e3b',
+                titleFont: { size: 14 },
+                bodyFont: { size: 14 },
+                padding: 12,
+                displayColors: false
+            }
+        },
+        scales: {
+            x: { 
+                display: false, // Clean look: hide X axis numbers
+                grid: { display: false } 
+            },
+            y: { 
+                grid: { display: false },
+                ticks: { 
+                    font: { weight: 'bold', size: 14 },
+                    color: '#064e3b' 
+                }
+            }
+        }
+    }
+});
+// Data from Spreadsheet: 37 Online, 3 On-site (Total 40)
+ new Chart(document.getElementById('chartPlacementModality1'), {
+    type: 'bar',
+    data: {
+        labels: ['Online Internships', 'On-site (Amel/Local Shops)'],
+        datasets: [{
+            data: [37, 3],
+            backgroundColor: ['#3b82f6', '#93c5fd'],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+            
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false, // Critical for PDF export
+        plugins: {
+            legend: { position: 'bottom' },
+            title: {
+                display: true,
+                text: 'Internship Placement Type',
+                font: { size: 16, weight: 'bold' }
+            },
+            datalabels: {
+                formatter: (value, ctx) => {
+                    let sum = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                    let percentage = value + " (" + (value * 100 / sum).toFixed(1) + "%)";
+                    return percentage;
+                },
+                color: '#fff',
+                font: { weight: 'bold' }
+            }
+        }
+    }
+});
+// Data from Spreadsheet (image_f94b8c.png)
+new Chart(document.getElementById('chartPlacementModality'), {
+    type: 'bar',
+    data: {
+        labels: ['Online Internship', 'On-site Internship '],
+        datasets: [{
+            label: 'Internship Count', // This fixes the "undefined" issue
+            data: [37, 3],
+            backgroundColor: ['#2563eb', '#93c5fd'],
+            borderRadius: 8,
+            barThickness: 60
+        }]
+    },
+    options: {
+        indexAxis: 'y', // Horizontal Bar Chart for better readability
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: { padding: { right: 50 } },
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Internship Modality',
+                font: { size: 16, weight: 'bold' }
+            },
+            datalabels: {
+                anchor: 'end',
+                align: 'right',
+                color: '#064e3b',
+                font: { weight: '900', size: 14 },
+                formatter: (value) => value.toLocaleString()
+            },
+            tooltip: {
+                backgroundColor: '#064e3b',
+                titleFont: { size: 14 },
+                bodyFont: { size: 14 },
+                padding: 12,
+                displayColors: false
+            }
+        },
+        scales: {
+            x: { 
+                display: false, // Clean look: hide X axis numbers
+                grid: { display: false } 
+            },
+            y: { 
+                grid: { display: false },
+                ticks: { 
+                    font: { weight: 'bold', size: 14 },
+                    color: '#064e3b' 
+                }
+            }
+        }
+    }
+});
+
+const placementData = {
+    labels: ['Lebanese Female', 'Lebanese Male', 'Syrian Female', 'Syrian Male'],
+    datasets: [{
+        label: 'Number of Particpants',
+        data: [24, 9, 12, 3],
+        backgroundColor: [
+            '#1e40af', // Deep Blue
+            '#3b82f6', // Blue
+            '#60a5fa', // Light Blue
+            '#93c5fd'  // Very Light Blue
+        ],
+        borderRadius: 8,
+        barThickness: 50
+    }]
+};
+
+new Chart(document.getElementById('chartPlacementBar'), {
+    type: 'bar',
+    data: placementData,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false, // Essential for PDF stability
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Participants completed 7 months of trainings (Total: 48)',
+                font: { size: 16, weight: 'bold' }
+            },
+            datalabels: {
+                display: true,
+                anchor: 'end',
+                align: 'top',
+                color: '#1e293b',
+                font: { weight: 'bold', size: 14 },
+                formatter: (value) => value // This displays the raw number
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 30, // Adds space for the labels at the top
+                grid: { display: false }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
+    }
+});
+        
+const placementData_DCA = {
+    labels: ['Lebanese Female', 'Lebanese Male', 'Syrian Female', 'Syrian Male','Other Female','Other Male'],
+    datasets: [{
+        label: 'Number of Registered Particpants',
+        data: [25, 16, 26, 3,1,1],
+        backgroundColor: [
+            '#1e40af', // Deep Blue
+            '#3b82f6', // Blue
+            '#60a5fa', // Light Blue
+            '#93c5fd'  // Very Light Blue
+        ],
+        borderRadius: 8,
+        barThickness: 50
+    }]
+};
+
+new Chart(document.getElementById('chartDCANationalities'), {
+    type: 'bar',
+    data: placementData_DCA,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false, // Essential for PDF stability
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Registered Benefeciaries (Total: 72)',
+                font: { size: 16, weight: 'bold' }
+            },
+            datalabels: {
+                display: true,
+                anchor: 'end',
+                align: 'top',
+                color: '#1e293b',
+                font: { weight: 'bold', size: 14 },
+                formatter: (value) => value // This displays the raw number
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 30, // Adds space for the labels at the top
+                grid: { display: false }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
+    }
+});
+
+
+const placementData_DCA_Targets = {
+    labels: ['Lebanese Female', 'Lebanese Male', 'Syrian Female', 'Syrian Male','Other Female'],
+    datasets: [{
+        label: 'Number of Registered Particpants',
+        data: [9, 1, 7,2,1],
+        backgroundColor: [
+            '#1e40af', // Deep Blue
+            '#3b82f6', // Blue
+            '#60a5fa', // Light Blue
+            '#93c5fd'  // Very Light Blue
+        ],
+        borderRadius: 8,
+        barThickness: 30
+        
+    }]
+};
+
+new Chart(document.getElementById('chartDCANationalities_Targets'), {
+    type: 'bar',
+    data: placementData_DCA_Targets,
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false, // Essential for PDF stability
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: 'Benefeciaries completed Vocational Training(Total: 20)',
+                font: { size: 16, weight: 'bold' }
+            },
+            datalabels: {
+                display: true,
+                anchor: 'end',
+                align: 'center',
+                color: '#1e293b',
+                font: { weight: 'bold', size: 14 },
+                formatter: (value) => value // This displays the raw number
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 70, // Adds space for the labels at the top
+                grid: { display: false }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
+    }
+});
+
+
+
+
+new Chart(document.getElementById('chartMOFA'), { type: 'line', data: { labels: ['W1', 'W2', 'W3', 'W4'], datasets: [{ data: [5, 20, 15, 45], borderColor: '#10b981', fill: false }]}, options: opt });
+        new Chart(document.getElementById('chartLife'), { type: 'bar', data: { labels: ['Dev', 'Design', 'Soft Skills'], datasets: [{ data: [90, 75, 95], backgroundColor: '#3b82f6' }]}, options: opt });
+        new Chart(document.getElementById('chartProtect'), { type: 'radar', data: { labels: ['Legal', 'Health', 'Shelter', 'Cash'], datasets: [{ data: [80, 70, 90, 85], borderColor: '#1e293b' }]}, options: opt });
+    </script>
+</body>
+</html>
