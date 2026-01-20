@@ -29,6 +29,47 @@
     /*.project-card { break-inside: avoid; margin-bottom: 20px; border: none !important; }
 /*}*/
 @media print {
+    * { transition: none !important; animation: none !important; }
+    .no-print { display: none !important; }
+
+    .print-section {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    .chart-box  {
+        display: block !important;
+        position: relative !important;
+        height: auto !important;
+        min-height: 300px !important;
+        width: 100% !important;
+        margin-bottom: 10px !important;
+        overflow: visible !important;
+    }
+
+
+    canvas {
+        display: inline-block !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    .project-card > div {
+        display: block !important;
+        width: 100% !important;
+        clear: both !important;
+    }
+
+    /* .print-map-wrapper {
+        page-break-before: always !important;
+        break-before: page !important;
+    }
+*/
+
+}
+
+
+@media print__ {
     /* Kill all animations and transitions that cause overlaying */
     * { 
         transition: none !important; 
@@ -158,10 +199,16 @@
                 </div>
             </div>
             </div>
-            <div class="lg:col-span-2">
+            <div class="lg:col-span-2 ">
                 <div id="map"></div>
+                
+                <!-- <img src="images/map-print.jpeg" class="map-print" /> -->
+                 <!-- PRINT layout (outside grid) -->
+
             </div>
-        </div>
+        
+                  </div>
+
     </section>
 
     <main id="projects" class="max-w-7xl mx-auto py-2 px-6">
@@ -179,11 +226,11 @@
                     <p class="text-slate-600 text-base md:text-xl lg:text-xl leading-relaxed mb-10">In WASH sector ,1500 MHM kits were distributed on a 3 basis one each month in  February ,March and April 2025   to 300 women and 200 girls. 20 sessions were conducted in February 2025 for 500 women and girls .</p>
                     <p class="text-slate-600 text-base md:text-xl lg:text-xl leading-relaxed mb-10">Regarding Livelihood sector, all project activities were achieved: 17 vocational training were delivered (510 Hours) ,265 beneficiaries were graduated ,  certificates were designed .
                         </p>
-                        <div class="grid-cols-1 gap-6">
-                            <div class="chart-box w-full  h-80 bg-gray-100 p-4   rounded-lg ">
+                        <div class="grid grid-cols-1 gap-6 py-10">
+                            <div class="chart-box w-full  h-80 bg-gray-100 p-4  rounded-lg " >
                                 <canvas id="chartLHF1" ></canvas>
                             </div>
-                            <div class="chart-box w-full h-64">
+                            <div class="chart-box w-full h-64 py-10">
                                 <canvas id="chartLHF2" class="w-full h-full"></canvas>
                             </div>
                             <div class="chart-box w-full h-80 bg-gray-100 p-4 rounded-lg">
@@ -273,8 +320,8 @@
             </div>
                 <div class="order-1 lg:order-2">
                     <span class="bg-emerald-100 text-emerald-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest">Project 02: MOFA</span>
-                    <h3 class="text-2xl  md:text-4xl lg:text-5xl font-black mt-6 mb-8 text-slate-900 leading-tight">Inclusion, access to rights, and self-relianc</h3>
-                    <p class="text-slate-600 text-base md:text-xl lg:text-xl leading-relaxed mb-10">Combatting the exclusion of women, girls, men, and boys from the most vulnerable host and refugee communities in Lebanon, strengthening their resilience and autonomy by facilitating their access to economic and social rights (protection, basic services, ...).Implemented in Kamed El Loz, Tyre, Chmestar, Ard Jaloul, Hay El Sellom, and Chiah in addition to Akkar by AND the Amel Partner.</p>
+                    <h3 class="text-2xl  md:text-4xl lg:text-5xl font-black mt-6 mb-8 text-slate-900 leading-tight">Inclusion, access to rights, and self-reliance</h3>
+                    <p class="text-slate-600 text-base md:text-xl lg:text-xl leading-relaxed mb-10">The project aim to combat the exclusion of women, girls, men, and boys from the most vulnerable host and refugee communities in Lebanon, strengthening their resilience and autonomy by facilitating their access to economic and social rights (protection, basic services, ...).Implemented in Kamed El Loz, Tyre, Chmestar, Ard Jaloul, Hay El Sellom, and Chiah in addition to Akkar by AND the Amel Partner.</p>
                     <div class="grid grid-cols-1 gap-6">
                     <div class="chart-box w-full"><canvas id="chartMOFADemographics"></canvas></div>
                     <!-- <div class="p-10 bg-slate-50 rounded-3xl border border-slate-100">
