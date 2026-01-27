@@ -691,10 +691,10 @@
                      </div> 
               </a> -->
 
-              <a href="images/Gallery-Agri/Food security (6).jpg" 
+              <a href="images/Gallery-Agri/Food security (6).JPG" 
               data-pswp-width="1200" data-pswp-height="500" 
               class="gallery-item agri group relative overflow-hidden rounded-[30px] h-80 shadow-md block">
-               <img src="images/Gallery-Agri/Food security (6).jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Seedling distribution center">
+               <img src="images/Gallery-Agri/Food security (6).JPG" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Seedling distribution center">
                <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                    <i class="fa-solid fa-expand text-white text-3xl"></i>
                </div>
@@ -865,6 +865,36 @@
             </button>
         </div>
     </footer>
+    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-4 pointer-events-none">
+        <div class="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto">
+        </div>
+    </nav>
+    
+    <button id="backToTop" class="fixed bottom-8 right-8 z-50 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center translate-y-24 opacity-0 transition-all duration-500 hover:bg-emerald-700 hover:scale-110">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+    <script>
+        const backToTopBtn = document.getElementById('backToTop');
+    
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                // Show button after scrolling 400px
+                backToTopBtn.classList.remove('translate-y-24', 'opacity-0');
+                backToTopBtn.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                // Hide button
+                backToTopBtn.classList.add('translate-y-24', 'opacity-0');
+                backToTopBtn.classList.remove('translate-y-0', 'opacity-100');
+            }
+        });
+    
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
     <script>
 function exportToPDF() {
     const btn = event.currentTarget;
@@ -1397,6 +1427,7 @@ new Chart(document.getElementById('chartMOFA'), { type: 'line', data: { labels: 
         new Chart(document.getElementById('chartLife'), { type: 'bar', data: { labels: ['Dev', 'Design', 'Soft Skills'], datasets: [{ data: [90, 75, 95], backgroundColor: '#3b82f6' }]}, options: opt });
         new Chart(document.getElementById('chartProtect'), { type: 'radar', data: { labels: ['Legal', 'Health', 'Shelter', 'Cash'], datasets: [{ data: [80, 70, 90, 85], borderColor: '#1e293b' }]}, options: opt });
     </script>
+
+
 </body>
 </html>
-
