@@ -59,7 +59,12 @@
         width: 100% !important;
         clear: both !important;
     }
+       .project-card {
+   page-break-before: always;
+    }
+    .print{   page-break-before: always;}
 
+#map{ page-break-before: always;}
     /* .print-map-wrapper {
         page-break-before: always !important;
         break-before: page !important;
@@ -124,11 +129,11 @@
         /* Image Containers per Section */
         .img-container {
             width: 100%;
-            /* height: 480px; */
+             height: 100%;  
             border-radius: 40px;
             overflow: hidden;
             margin-bottom: 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            box-shadow: 25px 25px 25px 25px rgba(0, 0, 0, 0.15);
         }
         
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -181,14 +186,14 @@
         </div>
     
         <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
-            <div class="bg-white p-3 md:p-4 rounded-sm shadow-2xl border-b-4 border-emerald-600 transition-transform hover:scale-105">
+            <div class="bg-white p-3 md:p-4 rounded-sm shadow-2xl border-b-4 border-emerald-600 transition-transform hover:scale-105 ">
                 <img src="images/Amel_logo - Copy.jpg" alt="Amel Logo" class="h-12 md:h-14 w-auto mx-auto">
             </div>
         </div>
     </header>
 
     <section id="map-section" class="max-w-7xl mx-auto py-2 px-6">
-        <div class="grid lg:grid-cols-3 gap-16 items-center mb-16">
+        <div class="grid lg:grid-cols-3 gap-16 items-center mb-10">
             <div class="lg:col-span-1">
      
          <div class="lg:col-span-1">
@@ -207,8 +212,11 @@
                     <div class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border-l-4 border-emerald-500">
                         <span class="font-bold text-sm">South-Saida & Tyre (MOFA-DCA)</span>
                     </div>
+                         <div class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border-l-4 border-orange-500">
+                        <span class="font-bold text-sm">Nabatieh (DCA)</span>
+                    </div>
                     <div class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border-l-4 border-purple-500">
-                        <span class="font-bold text-sm">Akkar (MOFA "AND")</span>
+                        <span class="font-bold text-sm">Akkar (MOFA in partnership with "AND")</span>
                     </div>
                 </div>
             </div>
@@ -232,6 +240,7 @@
                 <img src="images/Food Security.jpg" alt="Livelihood Distribution"  >
                 <!-- \\src="https://images.unsplash.com/photo-1541844053589-346841d0b34c?auto=format&fit=crop&q=80" -->
             </div>
+            
             <div class="grid lg:grid-cols-2  grid-cols-1 md:grid-cols-2 gap-6 items-start">
                 <div>
                     <span class="bg-red-100 text-red-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest">Project 01: LHF MultiSectoral</span>
@@ -265,7 +274,6 @@
                     
                     <h4 class="text-2xl font-black text-red-900 mb-6 italic">Success Story</h4>
                     <p class="text-xl text-red-800 italic leading-relaxed">"Some women started home-based businesses, especially those who took the macrame course. A few began ordering raw materials and fulfilling customer requests from home. For example, a mother and daughter started working together from their home. "</p>
-
                 </div>
                 <!-- <div class="order-2 lg:order-1 bg-red-900 text-white p-12 rounded-[50px] shadow-2xl">
                     <h4 class="text-emerald-400 font-black text-xl mb-6 uppercase tracking-widest">Impact Metric</h4>
@@ -316,7 +324,7 @@
                     </div>
                     <p class="text-3xl font-black text-right">76.3%</p>
                 </div>
-                <div class="bg-emerald-50 border-2 border-emerald-100 p-8 rounded-[40px] relative overflow-hidden shadow-sm my-10">
+                <div class="bg-emerald-50 border-2 border-emerald-100 p-8 rounded-[40px] relative overflow-hidden shadow-sm my-10 print">
                     <div class="absolute -top-6 -right-6 opacity-10">
                         <i class="fa-solid fa-leaf text-[12rem] text-emerald-600"></i>
                     </div>
@@ -540,20 +548,34 @@
                 <img src="images/Session 1.jpg" alt="Digital Hub">
             </div>
             <div class="grid lg:grid-cols-2 grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                <div>
+                <div class="flex flex-col gap-10">
                     <span class="bg-blue-100 text-blue-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest">Project 03: LIFE France</span>
                     <h3 class="text-2xl  md:text-4xl lg:text-5xl font-black mt-6 mb-8 text-slate-900 leading-tight">Digital Youth Empowerment-Hay El Sellom Center</h3>
-                    <p class="text-slate-600 text-base md:text-xl lg:text-xl leading-relaxed mb-10">48 participnats completed 7 month cycle of Digital skills training,in addition to Life skilss, soft skills and PSS.</p>
+                    <p class="text-slate-600 text-base md:text-xl lg:text-xl leading-relaxed mb-10">48 participnats completed 7 month cycle of Digital skills training,in addition to Life skills, soft skills and PSS.</p>
                     <p class="text-slate-600 text-base md:text-xl lg:text-xl leading-relaxed mb-10">Out of 48 total participants, 40 (83%) secured internships. Of these, 37 interns (92.5%) worked remotely, while 3 (7.5%) completed on-site placements at the Amel Association or local businesses. Intern commitment was exceptionally high: 65% completed over 200 hours, and the remaining 35% finished 150 hours, demonstrating significant dedication to the program.</p>
                     
-                </div>
-            <div class="flex flex-col gap-10">
-                <div class="bg-blue-50 p-12 rounded-[50px] border border-blue-100">
+              
+                        <div class="bg-blue-50 p-12 rounded-[50px] border border-blue-100">
                     <h4 class="text-2xl font-black text-blue-900 mb-6 italic"></h4>
-                    <p class="text-xl text-blue-800 italic leading-relaxed">"Endline Assessment shows a significant development in the youth’s acquisition of digital marketing skills, both in terms of personal growth, interaction with the labor market, and professional technical abilities."</p>
+                    <p class="text-xl text-blue-800 italic leading-relaxed print">"Endline Assessment shows a significant development in the youth’s acquisition of digital marketing skills, both in terms of personal growth, interaction with the labor market, and professional technical abilities."</p>
                     <!-- <p class="mt-8 font-black text-blue-900 uppercase tracking-widest">— Marc G., Tripoli</p> -->
                 </div>
-                <div class="chart-box w-full"><canvas id="chartPlacementBar"></canvas></div>
+
+                </div>
+           
+            <div class="flex flex-col gap-10">
+                                   <div class="bg-blue-50 p-12 rounded-[50px] border border-red-100 h-full flex flex-col justify-center">
+                    <h4 class="text-2xl font-black text-blue-900 mb-6 italic">Success Story</h4>
+                    <p class="text-xl text-blue-800 italic leading-relaxed">"Amel launched competitions to inspire youth to develop their own projects, fostering innovative ideas. Some of these initiatives have been implemented, while others are still seeking funding. Notably, Jawad Khreiss successfully established his own digital marketing company."</p>
+<div class="flex-grow overflow-hidden rounded-3xl shadow-md border-4 border-white">
+        <img src="images/Jawad 1.jpeg" 
+             alt="Jawad Khreiss" 
+             class="w-full h-full object-cover object-center">
+    </div>
+    
+         
+                </div>
+                                <div class="chart-box w-full"><canvas id="chartPlacementBar"></canvas></div>
                 <div class="chart-box w-full"><canvas id="chartPlacementModality"></canvas></div>
             </div>
             </div>
@@ -573,8 +595,8 @@
                         Youth aligned with these sectors and requiring foundational or additional skills to enhance employability were targeted. Institutes, universities, cooperatives, and relevant institutions were engaged to support outreach and strengthen youth capacities in line with labour market needs.
                         
                         This approach enabled youth to directly access the labour market through internships, employment opportunities, or self-employment.</p>
-                    <div class="h-1 bg-slate-800 w-full mb-8"></div>
-                    <p class="italic text-slate-400">"Coordination with the Lebanese University – Faculty of Business Administration (Beirut) enabled the implementation of an advanced digital marketing training addressing labour market gaps. Youth from Hay El Sellom, from first-year to master’s level, were enrolled, and partnerships with private companies were established to provide practical training, internships, and employment opportunities through formal cooperation agreements."</p>
+                    <!-- <div class="h-1 bg-slate-800 w-full mb-8"></div>
+                    <p class="italic text-slate-400">"Coordination with the Lebanese University – Faculty of Business Administration (Beirut) enabled the implementation of an advanced digital marketing training addressing labour market gaps. Youth from Hay El Sellom, from first-year to master’s level, were enrolled, and partnerships with private companies were established to provide practical training, internships, and employment opportunities through formal cooperation agreements."</p> -->
                 </div>
                 <div class="chart-box"><canvas id="chartDCANationalities"></canvas></div>
                 <div class="p-8 bg-white rounded-[40px] border border-emerald-100 shadow-sm">
@@ -691,10 +713,10 @@
                      </div> 
               </a> -->
 
-              <a href="images/Gallery-Agri/Food security (6).jpg" 
+              <a href="images/Gallery-Agri/Food security (6).JPG" 
               data-pswp-width="1200" data-pswp-height="500" 
               class="gallery-item agri group relative overflow-hidden rounded-[30px] h-80 shadow-md block">
-               <img src="images/Gallery-Agri/Food security (6).jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Seedling distribution center">
+               <img src="images/Gallery-Agri/Food security (6).JPG" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Seedling distribution center">
                <div class="absolute inset-0 bg-emerald-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                    <i class="fa-solid fa-expand text-white text-3xl"></i>
                </div>
@@ -824,7 +846,7 @@
                 <h3 class="text-2xl font-black text-amber-900 uppercase">Coming Jan 2026: ARDNA</h3>
                 <p class="text-amber-800 mt-2">In partnership with <strong>Caritas Switherland</strong>, Ardna aim strengthen the resilience of crisis-affected communities in southern Lebanon by providing sustainable livelihood opportunities, employability skills,
                     psychosocial support and access to a multi-functional community center that fosters inclusion, self-reliance and social cohesion—especially women children
-                    and youth.</p>
+                    and youth</p>
             </div>
             <div class="mt-6 md:mt-0">
                 <span class="bg-amber-900 text-white px-8 py-3 rounded-full font-bold">Inception Phase</span>
@@ -935,9 +957,10 @@ function exportToPDF() {
             { c: [33.843, 35.902], clr: '#eab308' },  // Bekaa
             { c: [33.5615, 35.3571], clr: '#10b981' },  // Saida
             { c: [33.2674, 35.1996024], clr: '#10b981' },  // Tyre
-            { c: [33.9638696,36.0081691], clr: '#ef4444' }  // Bekaa
+            { c: [33.9638696,36.0081691], clr: '#ef4444' },  // Bekaa
+              { c: [33.3796773,35.4672801], clr: '#f97316' }  // Nabatieh
         ];
-        spots.forEach(s => L.circle(s.c, { color: s.clr, radius: 15000, fillOpacity: 0.5 }).addTo(map));
+        spots.forEach(s => L.circle(s.c, { color: s.clr, radius: 10000, fillOpacity: 0.4 }).addTo(map));
 
         // CHARTS
         const opt = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
@@ -1431,5 +1454,3 @@ new Chart(document.getElementById('chartMOFA'), { type: 'line', data: { labels: 
 
 </body>
 </html>
-
-
